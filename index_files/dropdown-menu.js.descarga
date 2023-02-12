@@ -1,0 +1,42 @@
+
+/*! jQuery script to hide certain form fields */
+
+jQuery(document).ready(function() {
+
+	/*Variable que contiene todos los submenús*/
+	var submenus = jQuery("#menu-lateral .menu-item .sub-menu");
+	
+	/*Ocultamos los submenús*/
+	submenus.hide();
+	
+	/*Mostramos los padres del actual, si es un submenu*/
+	var padremenuactual = jQuery("#menu-lateral .current-menu-item").parent();
+	if(padremenuactual.hasClass("sub-menu")){
+		padremenuactual.show();
+	}
+	
+	/*Variable que contiene todos los elementos de menú*/
+	var menus =  jQuery("#menu-lateral .menu-item");
+
+	/*Creamos el colapsador de menús (+) en los elementos de menú que tienen submenús,
+	y lo ponemos en línea*/
+	menus.children('a').css("display","inline");
+	
+	jQuery( menus ).each(function() {
+		if (!jQuery( this ).children( "ul" ).has( "li" ).length == 0){
+			jQuery( this ).children('a').after('<span style="cursor: pointer;" class="twa-menu-colapsable"> +</span');
+		} 
+		
+	});
+	
+	/*Variable que contiene todos los colapsadores de menús*/
+	var colapsador = jQuery(".twa-menu-colapsable");
+	
+	/*Al hacer click sobre el colapsador, mostramos el menú, y sino, lo ocultamos*/
+	colapsador.click({popped: false}, function(e) {
+
+		jQuery(this).parent().children(".sub-menu").toggle('slow');
+		
+	});
+	
+});
